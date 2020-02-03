@@ -26,13 +26,14 @@
             <td class="text-center">@(Model.IndexOf(item) + 1)</td>
             <td class="text-center">@item.fecha</td>
             <td>@item.empleadoAsistencia</td>
+
             @if (item.atrasos == 0)
             {
-                <td class="text-center text-danger">@item.horaIngreso</td>
+                <td class="text-center text-danger quitarColor">@item.horaIngreso</td>
             }
             else
             {
-                <td class="text-center">@item.horaIngreso</td>
+                <td class="text-center quitarColor">@item.horaIngreso</td>
             }
 
             <td class="text-center">@item.horaSalida</td>

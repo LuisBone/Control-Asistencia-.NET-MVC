@@ -27,6 +27,8 @@
 
     <div class="box">
 
+        @Html.ActionLink("Generar PDF", "generarPDF", "Asistencia", null, new { @class = "btn btn-danger", @target = "_blank" })
+        <br />
         <br />
         <div class="box-body">
 
@@ -84,10 +86,10 @@ MODAL EDITAR JUSTIFICACIÓN
 
             </div>
 
-            @using (Ajax.BeginForm("Justificar", "Asistencia", null, new AjaxOptions
+            @using (Ajax.BeginForm("justificarAsistencia", "Asistencia", null, new AjaxOptions
             {
                 HttpMethod = "Post",
-                OnSuccess = "Justificar",
+                OnSuccess = "okJustificar",
                 InsertionMode = InsertionMode.Replace,
                 UpdateTargetId = "divError"
             }))
@@ -143,6 +145,22 @@ MODAL EDITAR JUSTIFICACIÓN
         $.get("http://localhost:10056/Asistencia/recuperarDatos/?id=" + id, function (data) {
             document.getElementById("observacion").value = data.observacion;
         });
+    }
+    function Aprobar(id) {
+        $.get("http://localhost:10056/Asistencia/aprobar/?id=" + id, function (data) {
+            location.reload();
+        });
+    }
+
+    function okJustificar(data) {
+        
+        if (data == 1) {
+            alert("Justificación actualizada correctamente!");
+        } else {
+            alert("Ocurrio problemas al tratar de actualizar");
+        }
+        document.getElementById("btnClose").click();
+        location.reload();
     }
 
 

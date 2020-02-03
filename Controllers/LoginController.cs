@@ -15,6 +15,15 @@ namespace asistencia.Controllers
         // GET: Login
         public ActionResult Index()
         {
+            Session["fechaActual"] = null;
+            Session["nombreMes"] = null;
+            Session["Nombres"] = null;
+            Session["perfil"] = null;
+            Session["Id"] = null;
+            Session["mes"] = null;
+            Session["year"] = null;
+            Session["listaHistorial"] = null;
+            Session["listaEmpleados"] = null;
 
             return View();
         }

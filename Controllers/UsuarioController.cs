@@ -1,6 +1,9 @@
 ﻿using asistencia.Models;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -30,6 +33,7 @@ namespace asistencia.Controllers
                 {
                    
                     listaUsuarios = (from usuarios in bd.usuarios
+                                     orderby usuarios.USU_NOMBRES
                                      select new UsuariosCLS
                                      {
                                          idUsuario = usuarios.USU_ID,
@@ -42,6 +46,7 @@ namespace asistencia.Controllers
                                          min = (int) usuarios.USU_MIN,
                                          totalAtrasosMes = (int) usuarios.USU_TOTAL_ATRASOS_MES                                         
                                      }).ToList();
+                    Session["listaEmpleados"] = listaUsuarios;
                 }
                 listaPerfiles();
                 return View(listaUsuarios);
@@ -64,6 +69,7 @@ namespace asistencia.Controllers
                 if(termino == null)
                 {
                     listaUsuarios = (from usuarios in bd.usuarios
+                                     orderby usuarios.USU_NOMBRES
                                      select new UsuariosCLS
                                      {
                                          idUsuario = usuarios.USU_ID,
@@ -76,6 +82,7 @@ namespace asistencia.Controllers
                                          min = (int) usuarios.USU_MIN,
                                          totalAtrasosMes = (int) usuarios.USU_TOTAL_ATRASOS_MES
                                      }).ToList();
+                    Session["listaEmpleados"] = listaUsuarios;
                 }
                 else
                 {
@@ -93,6 +100,7 @@ namespace asistencia.Controllers
                                          min = (int)usuarios.USU_MIN,
                                          totalAtrasosMes = (int)usuarios.USU_TOTAL_ATRASOS_MES
                                      }).ToList();
+                    Session["listaEmpleados"] = listaUsuarios;
                 }
                 
             }
@@ -243,7 +251,102 @@ namespace asistencia.Controllers
 
         }
 
+        public FileResult generarPDF()
+        {
+            Document doc = new Document();
+            byte[] buffer;
 
+            using(MemoryStream ms = new MemoryStream())
+            {
+                PdfWriter.GetInstance(doc, ms);
+
+                doc.Open();
+
+                //Titulo del documento
+                Paragraph title = new Paragraph("REPORTE DE ATRASOS DE LOS EMPLEADOS ");
+                title.Alignment = Element.ALIGN_CENTER;
+                doc.Add(title);
+
+                Paragraph mesActual = new Paragraph("Mes "+ Session["nombreMes"]);
+                mesActual.Alignment = Element.ALIGN_CENTER;
+                doc.Add(mesActual);
+
+                Paragraph espacio = new Paragraph(" ");
+                doc.Add(espacio);
+
+                //tabla y columnas
+                PdfPTable table = new PdfPTable(4);
+
+                //Definición de ancho de columnas
+                float[] values = new float[4] { 15, 100, 40, 50 };
+                table.SetWidths(values);
+
+                //Creando celdas
+                //celda 1
+                PdfPCell celda1 = new PdfPCell(new Phrase("#"));
+                celda1.BackgroundColor = new BaseColor(130, 130, 130);
+                celda1.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+                table.AddCell(celda1);
+
+                //celda 2
+                PdfPCell celda2 = new PdfPCell(new Phrase("Empleado"));
+                celda2.BackgroundColor = new BaseColor(130, 130, 130);
+                celda2.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+                table.AddCell(celda2);
+
+                //celda 3
+                PdfPCell celda3 = new PdfPCell(new Phrase("Total atrasos"));
+                celda3.BackgroundColor = new BaseColor(130, 130, 130);
+                celda3.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+                table.AddCell(celda3);
+
+                //celda 4
+                PdfPCell celda4 = new PdfPCell(new Phrase("% Descuento"));
+                celda4.BackgroundColor = new BaseColor(130, 130, 130);
+                celda4.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+                table.AddCell(celda4);
+
+                //Agregando contenido a la tabla
+                List<UsuariosCLS> lista = (List<UsuariosCLS>) Session["listaEmpleados"];
+                int nregistros = lista.Count;
+                for(int i=0; i < nregistros; i++)
+                {
+                    PdfPCell celda = new PdfPCell(new Phrase((i + 1).ToString()));
+                    celda.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+                    table.AddCell(celda);
+
+                    celda = new PdfPCell(new Phrase(lista[i].nombres));
+                    table.AddCell(celda);
+
+                    celda = new PdfPCell(new Phrase(lista[i].totalAtrasosMes.ToString()));
+                    celda.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+                    table.AddCell(celda);
+
+                    if (lista[i].totalAtrasosMes > 3)
+                    {
+                        celda = new PdfPCell(new Phrase("10% de descuento"));
+                        celda.BackgroundColor = new BaseColor(252, 132, 3);
+                        celda.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+                        table.AddCell(celda);
+                    }
+                    else
+                    {
+                        celda = new PdfPCell(new Phrase("No Aplica"));
+                        celda.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+                        table.AddCell(celda);
+                    }
+                }
+
+                //Agregar tabla al documento
+                doc.Add(table);
+                doc.Close();
+
+                buffer = ms.ToArray();
+
+            }
+
+            return File(buffer, "application/pdf");
+        }
 
 
     }

@@ -76,3 +76,4 @@ C:\Users\luisi\Desktop\ProyectoAsistencia\asistencia\obj\Debug\asistencia.csproj
 C:\Users\luisi\Desktop\ProyectoAsistencia\asistencia\obj\Debug\asistencia.dll
 C:\Users\luisi\Desktop\ProyectoAsistencia\asistencia\obj\Debug\asistencia.pdb
 C:\Users\luisi\Desktop\ProyectoAsistencia\asistencia\obj\Debug\asistencia.csprojAssemblyReference.cache
+C:\Users\luisi\Desktop\ProyectoAsistencia\asistencia\bin\itextsharp.dll
