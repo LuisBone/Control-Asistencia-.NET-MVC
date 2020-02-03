@@ -20,7 +20,8 @@ namespace asistencia.Controllers
         {
             int totalAtrasos = 0;
             //condicion si existe un ID de usuario al hacer login
-            if (Session["Id"] == null)
+            
+            if (Session["Id"] == null && Session["perfil"].Equals("Administrador"))
             {
                 return RedirectToAction("Index", "Login");
             }

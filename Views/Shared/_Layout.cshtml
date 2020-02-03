@@ -28,8 +28,11 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav" id="menu">
                     <li>@Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "active" })</li>
-                    <li>@Html.ActionLink("Control Usuarios", "Index", "Usuario", new { area = "" }, new { @class = "active" })</li>
-                    <li>@Html.ActionLink("Historial Asistencia", "Index", "Asistencia", new { area = "" }, new { @class = "active" })</li>
+                    @if (Session["perfil"].Equals("Administrador"))
+                    {
+                        <li>@Html.ActionLink("Control Usuarios", "Index", "Usuario", new { area = "" }, new { @class = "active" })</li>
+                        <li>@Html.ActionLink("Historial Asistencia", "Index", "Asistencia", new { area = "" }, new { @class = "active" })</li>
+                    }
                 </ul>
             </div>
         </div>

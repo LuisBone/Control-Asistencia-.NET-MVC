@@ -16,6 +16,7 @@ namespace asistencia.Controllers
         public ActionResult Index()
         {
             //condicion si existe un ID de usuario al hacer login
+            
             if(Session["Id"] == null)
             {
                 return RedirectToAction("Index","Login");
