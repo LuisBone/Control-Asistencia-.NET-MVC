@@ -24,7 +24,7 @@
         {
         <tr>
             <td class="text-center">@(Model.IndexOf(item) + 1)</td>
-            <td class="text-center">@item.fecha</td>
+            <td class="text-center">@item.fecha.ToString("dd-MM-yyyy")</td>
             <td>@item.empleadoAsistencia</td>
 
             @if (item.atrasos == 0)

@@ -184,11 +184,15 @@ namespace asistencia.Controllers
         public int justificar(AsistenciaCLS asistenciaCLS)
         {
             int rpta = 0;
+            int idUsuarioSession = (int)Session["Id"];
             try
             {
                 using (var bd = new asistenciaEntities())
                 {
-
+                    Models.asistencia asi = bd.asistencia.Where(p => p.USU_ID.Equals(idUsuarioSession)
+                                                                && p.ASI_FECHA.Equals(asistenciaCLS.fechaJustificar)).First();
+                    asi.ASI_OBSERVACION = asistenciaCLS.observacion;
+                    rpta = bd.SaveChanges();
                 }
             }
             catch (Exception)
