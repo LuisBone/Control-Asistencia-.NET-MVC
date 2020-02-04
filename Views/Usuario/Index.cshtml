@@ -118,11 +118,11 @@ MODAL AGREGAR INSTRUCTOR
 
                         <div class="form-group">
 
-                            <div class="input-group">
+                            <div class="input-group" id="caja">
 
                                 <span class="input-group-addon glyphicon glyphicon-credit-card"></span>
 
-                                @Html.TextBox("usuario", null, new { @class = "form-control", @placeholder = "No CÉDULA", @required = true, @readonly=true, @type="number" })
+                                @Html.TextBox("usuario", null, new { @class = "form-control", @placeholder = "No CÉDULA", @required = true, @readonly=true, @type="number", onkeyup="verificarCedula()" })
                             </div>
 
                         </div>
@@ -135,7 +135,7 @@ MODAL AGREGAR INSTRUCTOR
 
                                 <span class="input-group-addon glyphicon glyphicon-user"></span>
 
-                                @Html.TextBox("nombres", null, new { @class = "form-control cambios", @placeholder = "NOMBRE EMPLEADO", @pattern = "[A-Za-zñÑáéíóúÁÉÍÓÚ ]+", @title = "Sin números y sin caracteres especiales", @required = true })
+                                @Html.TextBox("nombres", null, new { @class = "form-control", @placeholder = "NOMBRE EMPLEADO", @pattern = "[A-Za-zñÑáéíóúÁÉÍÓÚ ]+", @title = "Sin números y sin caracteres especiales", @required = true })
                             </div>
 
                         </div>
@@ -145,7 +145,7 @@ MODAL AGREGAR INSTRUCTOR
 
                         <div class="form-group">
 
-                            <div class="input-group">
+                            <div class="input-group" >
 
                                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
                                
@@ -216,6 +216,7 @@ MODAL AGREGAR INSTRUCTOR
             controles[i].value = "";
         }
         document.getElementById("divError").innerHTML = "";
+        //document.getElementById("cedulaDanger").innerHTML = "";
     }
 
     var termino = document.getElementById("termino");
@@ -233,7 +234,8 @@ MODAL AGREGAR INSTRUCTOR
     function Guardar(rpta) {
         if (rpta == "1") {
             $("#frmFiltro").trigger("submit");
-            alert("Se ejecuto correctamente");
+            //alert("Se ejecuto correctamente");
+            swal("Exelente!", "Se ejecuto correctamente!", "success"); 
             Limpiar();
             document.getElementById("btnClose").click();
         } else {
@@ -258,7 +260,7 @@ MODAL AGREGAR INSTRUCTOR
             if (data == null) {
                 alert("Ha ocurrido un error");
             } else {
-                alert("Eliminado correctamente!");
+                swal("Exelente!", "Se ejecuto correctamente!", "success"); 
                 $("#frmFiltro").trigger("submit");
             }
         });
@@ -268,6 +270,22 @@ MODAL AGREGAR INSTRUCTOR
     var cambiosInput = document.getElementsByClassName("cambios");
     cambiosInput.onchange = function () {
         alert("prueba");
+    }
+
+    function verificarCedula() {
+        var cedulaNueva = document.getElementById("usuario").value;
+        $.get("http://localhost:10056/Usuario/verificarCedula/?cedula=" + cedulaNueva, function (data) {
+            if (data >= 1) {
+                if ($("#cedulaDanger")) {
+                    $("#caja").after("<div id='cedulaDanger' class='alert alert-warning'>Esta cédula ya se encuentra registrada</div>");
+                    $("#botonEmergenteGuardar").prop("disabled",true);
+                }     
+            } else {
+                $("#cedulaDanger").remove();
+                $("#botonEmergenteGuardar").prop("disabled",false);
+            }
+        });
+        
     }
 
 </script>

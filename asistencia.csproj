@@ -103,11 +103,13 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\img\ErrorPage404-01.jpg" />
     <Content Include="Content\logos\Logo.jpg" />
     <Content Include="Content\logos\Logo.png" />
     <Content Include="Content\logos\logo_grupo.jpg" />
     <Content Include="Content\logos\logo_grupo.png" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\sweetalert.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -152,6 +154,7 @@
     <Content Include="Models\BDAsistencia.edmx.diagram">
       <DependentUpon>BDAsistencia.edmx</DependentUpon>
     </Content>
+    <Content Include="libman.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\datepicker.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -162,6 +165,7 @@
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\sweetalert.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -219,6 +223,7 @@
     <Content Include="Views\Asistencia\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Asistencia\_tablaAsistencia.cshtml" />
+    <Content Include="Views\error404.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
