@@ -10,11 +10,11 @@
 
     <section class="content-header">
 
-        <h1>
-
+        <h2>
+            <img src="~/Content/logos/LogoReloj.jpg" style="width:50px;" />
             HISTORIAL ASISTENCIA
 
-        </h1>
+        </h2>
 
     </section>
 
@@ -27,7 +27,7 @@
 
     <div class="box">
 
-        @Html.ActionLink("Generar PDF", "generarPDF", "Asistencia", null, new { @class = "btn btn-danger", @target = "_blank" })
+        @Html.ActionLink("Generar PDF", "generarPDF", "Asistencia", null, new { @class = "btn btn-danger pull-right", @target = "_blank" })
         <br />
         <br />
         <div class="box-body">

@@ -106,6 +106,7 @@
     <Content Include="Content\img\ErrorPage404-01.jpg" />
     <Content Include="Content\logos\Logo.jpg" />
     <Content Include="Content\logos\Logo.png" />
+    <Content Include="Content\logos\LogoReloj.jpg" />
     <Content Include="Content\logos\logo_grupo.jpg" />
     <Content Include="Content\logos\logo_grupo.png" />
     <Content Include="Content\Site.css" />
