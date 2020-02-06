@@ -235,7 +235,7 @@ MODAL AGREGAR INSTRUCTOR
         if (rpta == "1") {
             $("#frmFiltro").trigger("submit");
             //alert("Se ejecuto correctamente");
-            swal("Exelente!", "Se ejecuto correctamente!", "success"); 
+            swal("Usuario", "Fue guardado correctamente!", "success"); 
             Limpiar();
             document.getElementById("btnClose").click();
         } else {
@@ -260,16 +260,10 @@ MODAL AGREGAR INSTRUCTOR
             if (data == null) {
                 alert("Ha ocurrido un error");
             } else {
-                swal("Exelente!", "Se ejecuto correctamente!", "success"); 
+                swal("Usuario", "Fue eliminado correctamente!", "success"); 
                 $("#frmFiltro").trigger("submit");
             }
         });
-    }
-
-    //función cuando hacen cambios en los input
-    var cambiosInput = document.getElementsByClassName("cambios");
-    cambiosInput.onchange = function () {
-        alert("prueba");
     }
 
     function verificarCedula() {

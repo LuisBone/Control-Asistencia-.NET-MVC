@@ -328,7 +328,7 @@ namespace asistencia.Controllers
                     celda.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
                     table.AddCell(celda);
 
-                    if (lista[i].totalAtrasosMes > 3)
+                    if (lista[i].totalAtrasosMes >= 3)
                     {
                         celda = new PdfPCell(new Phrase("10% de descuento"));
                         celda.BackgroundColor = new BaseColor(252, 132, 3);

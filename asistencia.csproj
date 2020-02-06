@@ -147,6 +147,7 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="libman.json" />
     <EntityDeploy Include="Models\BDAsistencia.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>BDAsistencia.Designer.cs</LastGenOutput>
@@ -154,7 +155,6 @@
     <Content Include="Models\BDAsistencia.edmx.diagram">
       <DependentUpon>BDAsistencia.edmx</DependentUpon>
     </Content>
-    <Content Include="libman.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\datepicker.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
