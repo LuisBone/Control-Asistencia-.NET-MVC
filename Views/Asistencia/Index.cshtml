@@ -153,14 +153,29 @@ MODAL EDITAR JUSTIFICACIÓN
     }
 
     function okJustificar(data) {
-        
+        document.getElementById("divError").innerHTML = "";
         if (data == 1) {
-            alert("Justificación actualizada correctamente!");
+            document.getElementById("btnClose").click();
+            
+            //swal("Justificación actualizada correctamente!");            
+              
+            swal({
+                title: "Justificación actualizada correctamente!",
+                type: "success",
+                confirmButtonClass: "btn-success",
+                confirmButtonText: "Ok",
+                closeOnConfirm: false
+            },
+            function(){
+                location.reload();
+            });
+
         } else {
-            alert("Ocurrio problemas al tratar de actualizar");
+            alert("Ocurrio problemas al tratar de actualizar o no hubo cambios");
+            document.getElementById("btnClose").click();
         }
-        document.getElementById("btnClose").click();
-        location.reload();
+        
+        
     }
 
 

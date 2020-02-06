@@ -20,7 +20,13 @@ namespace asistencia.Controllers
         {
             int totalAtrasos = 0;
             //condicion si existe un ID de usuario al hacer login
+            
             if (Session["Id"] == null)
+            {
+                return RedirectToAction("Index", "Login");   
+            }
+
+            if (!(Session["perfil"].Equals("Administrador")))
             {
                 return RedirectToAction("Index", "Login");
             }
@@ -348,6 +354,22 @@ namespace asistencia.Controllers
             return File(buffer, "application/pdf");
         }
 
+        public JsonResult verificarCedula(string cedula)
+        {
+            try
+            {
+                using (var bd = new asistenciaEntities())
+                {
+                    int cantidadCedula = bd.usuarios.Where(p => p.USU_USUARIO.Equals(cedula)).Count();
+                    return Json(cantidadCedula, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception e)
+            {
+
+                return Json(e, JsonRequestBehavior.AllowGet);
+            }
+        }
 
     }
 }

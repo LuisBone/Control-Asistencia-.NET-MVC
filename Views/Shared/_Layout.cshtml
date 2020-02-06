@@ -7,6 +7,10 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+    <link href="~/Content/sweetalert.css" rel="stylesheet" />
+    <script src="~/Scripts/sweetalert.min.js"></script>
+
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <script src="https://use.fontawesome.com/09fc0b6481.js"></script>
 </head>
@@ -28,8 +32,11 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav" id="menu">
                     <li>@Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "active" })</li>
-                    <li>@Html.ActionLink("Control Usuarios", "Index", "Usuario", new { area = "" }, new { @class = "active" })</li>
-                    <li>@Html.ActionLink("Historial Asistencia", "Index", "Asistencia", new { area = "" }, new { @class = "active" })</li>
+                    @if (Session["perfil"].Equals("Administrador"))
+                    {
+                        <li>@Html.ActionLink("Control Usuarios", "Index", "Usuario", new { area = "" }, new { @class = "active" })</li>
+                        <li>@Html.ActionLink("Historial Asistencia", "Index", "Asistencia", new { area = "" }, new { @class = "active" })</li>
+                    }
                 </ul>
             </div>
         </div>

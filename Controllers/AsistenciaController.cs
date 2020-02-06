@@ -20,6 +20,10 @@ namespace asistencia.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
+            if (!(Session["perfil"].Equals("Administrador")))
+            {
+                return RedirectToAction("Index", "Login");
+            }
             List<AsistenciaCLS> listaAsistencia = new List<AsistenciaCLS>();
             using(var bd = new asistenciaEntities())
             {
@@ -55,6 +59,7 @@ namespace asistencia.Controllers
                     listaAsistencia = (from historial in bd.asistencia
                                        join usuario in bd.usuarios
                                        on historial.USU_ID equals usuario.USU_ID
+                                       orderby historial.ASI_FECHA descending
                                        select new AsistenciaCLS
                                        {
                                            idAsistencia = historial.ASI_ID,
@@ -73,6 +78,7 @@ namespace asistencia.Controllers
                                        join usuario in bd.usuarios
                                        on historial.USU_ID equals usuario.USU_ID
                                        where usuario.USU_NOMBRES.Contains(termino)
+                                       orderby historial.ASI_FECHA descending
                                        select new AsistenciaCLS
                                        {
                                            idAsistencia = historial.ASI_ID,
@@ -115,7 +121,7 @@ namespace asistencia.Controllers
         public FileResult generarPDF()
         {
             Document doc = new Document();
-            doc.SetMargins(0, 0, 5, 5);
+            doc.SetMargins(-5, -5, 5, 5);
             byte[] buffer;
 
             using (MemoryStream ms = new MemoryStream())
@@ -140,7 +146,7 @@ namespace asistencia.Controllers
                 PdfPTable table = new PdfPTable(5);
 
                 //Definición de ancho de columnas
-                float[] values = new float[5] { 50, 80, 50, 50, 80 };
+                float[] values = new float[5] { 50, 100, 50, 50, 50 };
                 table.SetWidths(values);
 
                 //Creando celdas
@@ -180,7 +186,7 @@ namespace asistencia.Controllers
                 int nregistros = lista.Count;
                 for (int i = 0; i < nregistros; i++)
                 {
-                    PdfPCell celda = new PdfPCell(new Phrase(lista[i].fecha.ToString()));
+                    PdfPCell celda = new PdfPCell(new Phrase(lista[i].fecha.ToString("dd-MM-yyyy")));
                     celda.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
                     table.AddCell(celda);
 
